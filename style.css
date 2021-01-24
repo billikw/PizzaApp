@@ -1,0 +1,30 @@
+.main {
+  background-color: #dd5a03;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0px;
+  z-index: 0;
+}
+.modal {
+  background-color: #830478;
+  min-width: 25%;
+  min-height: 25%;
+  max-width: 50%;
+  max-height: 100%;
+  margin-top: 2%;
+  align-self: center;
+  order: 1;
+  z-index: 100;
+  color: #ffffff;
+  text-align: center;
+  font-family: "Trebuchet MS";
+}
+.inactive {
+  display: none;
+}
+.lock {
+  background-color: gray;
+  background-size: cover;
+  z-index: 1;
+}
