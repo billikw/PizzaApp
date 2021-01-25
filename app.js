@@ -25,6 +25,7 @@ thickButton.addEventListener("click", revealModal("toppings","thick"));
 
 /* PIZZA GLOBAL */
 var pizza;
+var basket = [];
 
 /* PIZZA BUILDER */
 function pizzaObject(crust, size, toppings, extraOptions) {
@@ -35,7 +36,6 @@ function pizzaObject(crust, size, toppings, extraOptions) {
 }
 
 /* FUNCTIONS */
-
 function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptions) {
 
     switch (modal) {
@@ -45,7 +45,7 @@ function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptio
             pizza = new pizzaObject();
             console.log('Loading Size modal');
             console.log(pizza);
-            break;
+        break;
 
         case "crust":
             //Set size:
@@ -55,7 +55,7 @@ function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptio
             //Display the crust modal:
             crustModal.classList.remove("inactive");
             console.log('Loading Crust modal');
-            break;
+        break;
 
         case "toppings":
             //Set base style:
@@ -64,16 +64,14 @@ function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptio
             crustModal.classList.add("inactive");
             //Display the toppings modal:
             toppingsModal.classList.remove("inactive");
-            break;
+        break;
 
         case "options":
-            optionsModal.classList.remove("inactive");
             toppingsModal.classList.add("#inactive");
+            optionsModal.classList.remove("inactive");
             console.log('Loading Options modal');
-            break;
+        break;
 
         default: console.log("No value sent! No action taken"); pizza = undefined; console.log(pizza);
     }
 }
-
-/* DEFAULT STATES */
