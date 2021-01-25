@@ -49,34 +49,27 @@ function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptio
 
         case "crust":
             //Set size:
-            if (pizzaSize === 12){
-                pizza.size = pizzaSize;
-            } else pizza.size = 14;
+            pizzaSize === 12 ? pizza.size = 12 : pizza.size = 14;
             //Hide the size modal:
             sizeModal.classList.add("inactive");
             //Display the crust modal:
             crustModal.classList.remove("inactive");
             console.log('Loading Crust modal');
-            console.log(pizza);
             break;
 
         case "toppings":
             //Set base style:
-            if (pizzaThickness === "thin") {
-                pizza.crust = "thin";
-            } else pizza.crust = "thick";
+            pizzaThickness === "thin" ? pizza.crust = "thin" : pizza.crust = "thick";
             //Hide the crust modal:
             crustModal.classList.add("inactive");
             //Display the toppings modal:
             toppingsModal.classList.remove("inactive");
-            console.log(pizza);
             break;
 
         case "options":
             optionsModal.classList.remove("inactive");
             toppingsModal.classList.add("#inactive");
             console.log('Loading Options modal');
-            console.log(pizza);
             break;
 
         default: console.log("No value sent! No action taken"); pizza = undefined; console.log(pizza);
