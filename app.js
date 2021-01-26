@@ -102,6 +102,9 @@ function showToppings(){
 function showOptions(){
     showModel(_options);
 }
+function resetState(){
+    btnUnselectAll([_btn12inch,_btn14inch,_btnThick,_btnThin]);
+}
 
 // Remove class:
 function showModel(id) {
@@ -135,5 +138,5 @@ function btnUnselectAll(btnArray){
 function toggleResetBtn(){
     startButton.classList == "btnUnselected" 
     ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerHTML = "Start again?") 
-    : (startButton.classList.replace("btnReset", "btnUnselected"), startButton.innerHTML = "Lets Start!");
+    : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerHTML = "Let's Start!", hideModel(_size))
 }
