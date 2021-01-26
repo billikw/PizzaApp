@@ -23,6 +23,24 @@
 .inactive {
   display: none;
 }
+.btnSelected {
+  background-color: greenyellow;
+  color: black;
+  font-family: "Trebuchet MS";
+  border-radius: 15px;
+}
+.btnUnselected {
+  background-color: white;
+  color: black;
+  font-family: "Trebuchet MS";
+  border-radius: 15px;
+}
+.btnReset {
+  background-color: yellow;
+  color: black;
+  font-family: "Trebuchet MS";
+  border-radius: 15px;
+}
 .lock {
   background-color: gray;
   background-size: cover;

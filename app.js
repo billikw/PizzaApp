@@ -1,26 +1,69 @@
 "use strict";
 
 /* SELECTORS */
-//Modals:
-let welcomeText = document.querySelector("#welcomeText");
-let sizeModal = document.querySelector("#size");
-let crustModal = document.querySelector("#crust");
-let toppingsModal = document.querySelector("#toppings");
-let optionsModal = document.querySelector("#options");
-//Buttons:
-let startButton = document.querySelector("#btnStart");
-let twelveInchButton = document.querySelector("#btn12inch");
-let fourteenInchButton = document.querySelector("#btn14inch");
-let thinButton = document.querySelector("#btnThin");
-let thickButton = document.querySelector("#btnThick");
+
+//IDs:
+    //Modals:
+    const _welcomeText = "welcomeText";
+    const _size = "size";
+    const _crust = "crust";
+    const _toppings = "toppings";
+    const _options = "options";
+    //Buttons:
+    const _btnStart = "btnStart";
+    const _btn12inch = "btn12inch";
+    const _btn14inch = "btn14inch";
+    const _btnThick = "btnThick";
+    const _btnThin = "btnThin";
+
+//Query Selectors: 
+    //Modals:
+    const welcomeText = document.querySelector(`#${_welcomeText}`);
+    const sizeModal = document.querySelector(`#${_size}`);
+    const crustModal = document.querySelector(`#${_crust}`);
+    const toppingsModal = document.querySelector(`#${_toppings}`);
+    const optionsModal = document.querySelector(`#${_options}`);
+    //Buttons:
+    const startButton = document.querySelector(`#${_btnStart}`);
+    const twelveInchButton = document.querySelector(`#${_btn12inch}`);
+    const fourteenInchButton = document.querySelector(`#${_btn14inch}`);
+    const thinButton = document.querySelector(`#${_btnThin}`);
+    const thickButton = document.querySelector(`#${_btnThick}`);
 
 
 /* LISTENERS */
-startButton.addEventListener("click", revealModal("size"));
-twelveInchButton.addEventListener("click", revealModal("crust",null,12));
-fourteenInchButton.addEventListener("click", revealModal("crust",null,14));
-thinButton.addEventListener("click", revealModal("toppings","thin"));
-thickButton.addEventListener("click", revealModal("toppings","thick"));
+//Start Modal:
+startButton.addEventListener("click", function(){
+    startPizza()
+    pizza = new pizzaObject();
+    toggleResetBtn();
+});
+//Size Modal:
+twelveInchButton.addEventListener("click", function(){
+    showCrust(),
+    pizza.size = 12;
+    btnUnselected(_btn14inch),
+    btnSelected(_btn12inch)
+});
+fourteenInchButton.addEventListener("click", function(){
+    showCrust(),
+    pizza.size = 14;
+    btnUnselected(_btn12inch),
+    btnSelected(_btn14inch)
+});
+//Crust Modal:
+thinButton.addEventListener("click", function(){
+    showToppings(),
+    pizza.crust = "thin";
+    btnSelected(_btnThin),
+    btnUnselected(_btnThick)
+});
+thickButton.addEventListener("click", function(){
+    showToppings(),
+    pizza.crust = "thick";
+    btnSelected(_btnThick),
+    btnUnselected(_btnThin)
+});
 
 
 /* PIZZA GLOBAL */
@@ -36,42 +79,61 @@ function pizzaObject(crust, size, toppings, extraOptions) {
 }
 
 /* FUNCTIONS */
-function revealModal(modal, pizzaThickness, pizzaSize, pizzaToppings, pizzaOptions) {
 
-    switch (modal) {
+function startPizza(){
+    showModel(_size);
+    //Clean up:
+    pizza = undefined;
+    hideAll([_crust,_toppings,_options]);
+    btnUnselectAll([_btn12inch,_btn14inch,_btnThick,_btnThin]);
+}
+function showCrust(){
+    showModel(_crust);
+    //Clean Up:
+    hideAll([_toppings,_options]);
+    btnUnselectAll([_btnThick,_btnThin]);
+    pizza.crust = undefined;
+}
+function showToppings(){
+    showModel(_toppings);
+    //Clean Up:
+    hideAll([_options]);
+}
+function showOptions(){
+    showModel(_options);
+}
 
-        case "size":
-            sizeModal.classList.remove("inactive");
-            pizza = new pizzaObject();
-            console.log('Loading Size modal');
-            console.log(pizza);
-        break;
-
-        case "crust":
-            //Set size:
-            pizzaSize === 12 ? pizza.size = 12 : pizza.size = 14;
-            //Hide the size modal:
-            sizeModal.classList.add("inactive");
-            //Display the crust modal:
-            crustModal.classList.remove("inactive");
-            console.log('Loading Crust modal');
-        break;
-
-        case "toppings":
-            //Set base style:
-            pizzaThickness === "thin" ? pizza.crust = "thin" : pizza.crust = "thick";
-            //Hide the crust modal:
-            crustModal.classList.add("inactive");
-            //Display the toppings modal:
-            toppingsModal.classList.remove("inactive");
-        break;
-
-        case "options":
-            toppingsModal.classList.add("#inactive");
-            optionsModal.classList.remove("inactive");
-            console.log('Loading Options modal');
-        break;
-
-        default: console.log("No value sent! No action taken"); pizza = undefined; console.log(pizza);
+// Remove class:
+function showModel(id) {
+    document.getElementById(id).classList.remove("inactive");
+}
+// Add class:
+function hideModel(id) {
+    document.getElementById(id).classList.add("inactive");
+}
+// Remove class from all:
+function hideAll(modalArray){
+    for (let i=0; i<modalArray.length; i++){
+        hideModel(modalArray[i]);
     }
+}
+// Activate button:
+function btnSelected(id){
+    document.getElementById(id).classList.replace("btnUnselected","btnSelected");
+}
+// Reset buttons:
+function btnUnselected(id){
+    document.getElementById(id).classList.replace("btnSelected","btnUnselected");
+}
+// Reset all buttons:
+function btnUnselectAll(btnArray){
+    for (let i=0; i<btnArray.length; i++){
+        btnUnselected(btnArray[i]);
+    }
+}
+// Reset the Start/Reset button:
+function toggleResetBtn(){
+    startButton.classList == "btnUnselected" 
+    ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerHTML = "Start again?") 
+    : (startButton.classList.replace("btnReset", "btnUnselected"), startButton.innerHTML = "Lets Start!");
 }
