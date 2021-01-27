@@ -1,5 +1,6 @@
 <html>
 <head>
+    <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="style.css">
 </head>
 <body class="main">
@@ -23,8 +24,14 @@
                 <br/><br/><br/></div><br/><br/>
 
             <!-- TOPPINGS MODAL -->
-            <div id="toppings" class="modal inactive"><br/>Choose your toppings type:<br/><br/>
-                TOPPINGS TO BE ADDED HERE
+            <div id="toppings" class="modal inactive"><br/>Choose your toppings type:<br/>
+                (max 5) <br/><br/>
+                <button id="btnPepperoni" width="300px" height="150px" class="btnUnselected">Pepperoni</button>&nbsp;
+                <button id="btnCheese" width="300px" height="150px" class="btnUnselected">Cheese</button>&nbsp;
+                <button id="btnMixedPeppers" width="300px" height="150px" class="btnUnselected">Mixed Peppers</button>&nbsp;
+                <button id="btnRedOnion" width="300px" height="150px" class="btnUnselected">Red Onion</button>&nbsp;<br/><br/>
+                <span id="warningMaxToppings" class="modal inactive">Maximum toppings selected!<br/><br/></span>
+                <button id="btnNext" width="300px" height="150px" class="btnUnselected">Next</button>
                 <br/><br/><br/></div><br/><br/>
             
             <!-- OPTIONS MODAL -->

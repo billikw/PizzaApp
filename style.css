@@ -35,6 +35,12 @@
   font-family: "Trebuchet MS";
   border-radius: 15px;
 }
+.btnToppingClicked {
+  background-color: rgb(255, 0, 106);
+  color: white;
+  font-family: "Trebuchet MS";
+  border-radius: 15px;
+}
 .btnReset {
   background-color: yellow;
   color: black;
