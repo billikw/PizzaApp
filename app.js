@@ -81,44 +81,37 @@ function pizzaObject(crust, size, toppings, extraOptions) {
 /* FUNCTIONS */
 
 function startPizza(){
-    showModel(_size);
+    showModal(_size);
     //Clean up:
     pizza = undefined;
-    hideAll([_crust,_toppings,_options]);
-    btnUnselectAll([_btn12inch,_btn14inch,_btnThick,_btnThin]);
+    remover(hideModal,[_crust,_toppings,_options]);
+    remover(btnUnselected,[_btn12inch,_btn14inch,_btnThick,_btnThin]);
 }
 function showCrust(){
-    showModel(_crust);
+    showModal(_crust);
     //Clean Up:
-    hideAll([_toppings,_options]);
-    btnUnselectAll([_btnThick,_btnThin]);
+    remover(hideModal,[_toppings,_options]);
+    remover(btnUnselected,[_btnThick,_btnThin]);
     pizza.crust = undefined;
 }
 function showToppings(){
-    showModel(_toppings);
+    showModal(_toppings);
     //Clean Up:
-    hideAll([_options]);
+    remover(hideModal,[_options]);
 }
 function showOptions(){
-    showModel(_options);
+    showModal(_options);
 }
 function resetState(){
     btnUnselectAll([_btn12inch,_btn14inch,_btnThick,_btnThin]);
 }
-
-// Remove class:
-function showModel(id) {
-    document.getElementById(id).classList.remove("inactive");
-}
 // Add class:
-function hideModel(id) {
+function hideModal(id) {
     document.getElementById(id).classList.add("inactive");
 }
-// Remove class from all:
-function hideAll(modalArray){
-    for (let i=0; i<modalArray.length; i++){
-        hideModel(modalArray[i]);
-    }
+// Remove class:
+function showModal(id) {
+    document.getElementById(id).classList.remove("inactive");
 }
 // Activate button:
 function btnSelected(id){
@@ -128,15 +121,15 @@ function btnSelected(id){
 function btnUnselected(id){
     document.getElementById(id).classList.replace("btnSelected","btnUnselected");
 }
-// Reset all buttons:
-function btnUnselectAll(btnArray){
-    for (let i=0; i<btnArray.length; i++){
-        btnUnselected(btnArray[i]);
+// Resets all modals or buttons:
+function remover(btnOrModal,arr){
+    for (let i=0; i<arr.length; i++){
+        btnOrModal(arr[i]);
     }
 }
-// Reset the Start/Reset button:
+// Toggle the Start/Reset button:
 function toggleResetBtn(){
     startButton.classList == "btnUnselected" 
     ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerHTML = "Start again?") 
-    : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerHTML = "Let's Start!", hideModel(_size))
+    : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerHTML = "Let's Start!", hideModal(_size))
 }
