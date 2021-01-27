@@ -79,20 +79,16 @@ thickButton.addEventListener("click", function(){
 });
 // Topping buttons:
 pepperoniButton.addEventListener("click", function(){
-    addTopping("pepperoni"),
-    btnToppingSelected(_btnPepperoni)
+    addTopping("pepperoni", _btnPepperoni); 
 });
 redOnionButton.addEventListener("click", function(){
-    addTopping("red onion");
-    btnToppingSelected(_btnRedOnion);
+    addTopping("red onion", _btnRedOnion);
 });
 mixedPeppersButton.addEventListener("click", function(){
-    addTopping("mixed peppers");
-    btnToppingSelected(_btnMixedPeppers);
+    addTopping("mixed peppers", _btnMixedPeppers);
 });
 cheeseButton.addEventListener("click", function(){
-    addTopping("cheese");
-    btnToppingSelected(_btnCheese);
+    addTopping("cheese", _btnCheese);
 });
 
 
@@ -174,11 +170,11 @@ function toggleResetBtn(){
     ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerHTML = "Start again?") 
     : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerHTML = "Let's Start!", hideModal(_size))
 }
-function addTopping(t){
+function addTopping(t,b){
     if (pizza.toppings == undefined){
         pizza.toppings = []
     }
     pizza.toppings.length <= 4
-    ? pizza.toppings.push(t)
+    ? (pizza.toppings.push(t), btnToppingSelected(b))
     : showModal(_warningMaxToppings);
 }
