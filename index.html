@@ -3,41 +3,45 @@
     <meta charset="UTF-8">
     <link type="text/css" rel="stylesheet" href="style.css">
 </head>
+
 <body class="main">
-        <!-- content goes here for the general page, flexbox container. Inside here are
-             several modals which take you through the pizza options.                -->
+    <!-- DEFAULT MODAL -->
+    <div id="welcomeText" class="modal">
+        <p>Hey! Lets start building a pizza!</p><br/>
+        <button id="btnStart" width="300px" height="150px" class="btnUnselected">Lets Start!</button>
+    </div>
 
-             <!-- DEFAULT MODAL -->
-             <div id="welcomeText" class="modal">
-                 <p>Hey! Lets start building a pizza!</p><br/><br/>
-                 <button id="btnStart" width="300px" height="150px" class="btnUnselected">Lets Start!</button>
-                 <br/><br/><br/></div>
+    <!-- SIZE MODAL -->
+    <div id="size" class="modal inactive">Choose your pizza size:<br/><br/>
+        <button id="btn12inch" width="300px" height ="150px" class="btnUnselected">12" base</button>&nbsp;&nbsp;<button id="btn14inch" width="300px" height="150px" class="btnUnselected">14" base</button>
+    </div>
+    <br/><br/>
 
-            <!-- SIZE MODAL -->
-             <div id="size" class="modal inactive"><br/>Choose your pizza size:<br/><br/>
-                <button id="btn12inch" width="300px" height ="150px" class="btnUnselected">12" base</button>&nbsp;&nbsp;<button id="btn14inch" width="300px" height="150px" class="btnUnselected">14" base</button>
-                <br/><br/><br/></div><br/><br/>
+    <!-- CRUST MODAL -->
+    <div id="crust" class="modal inactive">Choose your crust type:<br/><br/>
+        <button id="btnThin" width="300px" height="150px" class="btnUnselected">Thin & Crispy</button>&nbsp;&nbsp;<button id="btnThick" width="300px" height="150px" class="btnUnselected">Deep Pan</button>
+    </div>
+    <br/><br/>
 
-            <!-- CRUST MODAL -->
-            <div id="crust" class="modal inactive"><br/>Choose your crust type:<br/><br/>
-                <button id="btnThin" width="300px" height="150px" class="btnUnselected">Thin & Crispy</button>&nbsp;&nbsp;<button id="btnThick" width="300px" height="150px" class="btnUnselected">Deep Pan</button>
-                <br/><br/><br/></div><br/><br/>
+    <!-- TOPPINGS MODAL -->
+    <div id="toppings" class="modal inactive">Choose your toppings type:<br/>
+        (max 5) <br/><br/>
+        <button id="btnPepperoni" width="300px" height="150px" class="btnUnselected">Pepperoni</button>&nbsp;
+        <button id="btnCheese" width="300px" height="150px" class="btnUnselected">Cheese</button>&nbsp;
+        <button id="btnMixedPeppers" width="300px" height="150px" class="btnUnselected">Mixed Peppers</button>&nbsp;
+        <button id="btnRedOnion" width="300px" height="150px" class="btnUnselected">Red Onion</button>&nbsp;<br/><br/>
+        <span id="warningMaxToppings" class="modal inactive">Maximum toppings selected!<br/><br/></span>
+        <span id="warningNoToppings" class="modal inactive">No toppings selected!<br/><br/></span>
+        <button id="btnNext" width="300px" height="150px" class="btnUnselected">Next</button>
+    </div>
+    <br/><br/>
 
-            <!-- TOPPINGS MODAL -->
-            <div id="toppings" class="modal inactive"><br/>Choose your toppings type:<br/>
-                (max 5) <br/><br/>
-                <button id="btnPepperoni" width="300px" height="150px" class="btnUnselected">Pepperoni</button>&nbsp;
-                <button id="btnCheese" width="300px" height="150px" class="btnUnselected">Cheese</button>&nbsp;
-                <button id="btnMixedPeppers" width="300px" height="150px" class="btnUnselected">Mixed Peppers</button>&nbsp;
-                <button id="btnRedOnion" width="300px" height="150px" class="btnUnselected">Red Onion</button>&nbsp;<br/><br/>
-                <span id="warningMaxToppings" class="modal inactive">Maximum toppings selected!<br/><br/></span>
-                <button id="btnNext" width="300px" height="150px" class="btnUnselected">Next</button>
-                <br/><br/><br/></div><br/><br/>
-            
-            <!-- OPTIONS MODAL -->
-            <div id="options" class="modal inactive"><br/>Choose your options type:<br/><br/>
-                OPTIONS TO BE ADDED HERE
-                <br/><br/><br/></div><br/><br/>
+    <!-- OPTIONS MODAL -->
+    <div id="options" class="modal inactive">
+        <span id="currentPizza"></span>
+        <button id="btnAddPizza">Add</button>
+    </div>
+    <br/><br/>
 
 </body>
 <script src="app.js"></script>

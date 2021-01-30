@@ -1,15 +1,16 @@
 "use strict";
 
 /* SELECTORS */
-
 //IDs:
-    //Modals:
+    //Modals and Spans:
     const _welcomeText = "welcomeText";
     const _size = "size";
     const _crust = "crust";
     const _toppings = "toppings";
     const _options = "options";
     const _warningMaxToppings = "warningMaxToppings";
+    const _warningNoToppings = "warningNoToppings";
+    const _currentPizza = "currentPizza";
     //Buttons:
     const _btnStart = "btnStart";
     const _btn12inch = "btn12inch";
@@ -21,16 +22,16 @@
     const _btnRedOnion = "btnRedOnion";
     const _btnMixedPeppers = "btnMixedPeppers";
     const _btnCheese = "btnCheese";
-
-
-//Query Selectors: 
-    //Modals:
+    const _btnAddPizza = "btnAddPizza"; 
+    //Modals and Spans:
     const welcomeText = document.querySelector(`#${_welcomeText}`);
     const sizeModal = document.querySelector(`#${_size}`);
     const crustModal = document.querySelector(`#${_crust}`);
     const toppingsModal = document.querySelector(`#${_toppings}`);
     const optionsModal = document.querySelector(`#${_options}`);
     const maxToppingsWarning = document.querySelector(`#${_warningMaxToppings}`);
+    const noToppingsWarning = document.querySelector(`#${_warningNoToppings}`);
+    const currentPizza = document.querySelector(`#${_currentPizza}`);
     //Buttons:
     const startButton = document.querySelector(`#${_btnStart}`);
     const twelveInchButton = document.querySelector(`#${_btn12inch}`);
@@ -42,7 +43,11 @@
     const redOnionButton = document.querySelector(`#${_btnRedOnion}`);
     const mixedPeppersButton = document.querySelector(`#${_btnMixedPeppers}`);
     const cheeseButton = document.querySelector(`#${_btnCheese}`);
-
+    const addPizzaButton = document.querySelector(`#${_btnAddPizza}`);
+    // Get Element By ID:
+    function elem(id) {
+        return document.getElementById(id);
+    }
 
 /* LISTENERS */
 //Start Modal:
@@ -75,9 +80,14 @@ thickButton.addEventListener("click", function(){
     showToppings(),
     pizza.crust = "thick";
     btnSelected(_btnThick),
-    btnUnselected(_btnThin)
+    btnUnselected(_btnThin);
 });
-// Topping buttons:
+//Options Modal:
+nextButton.addEventListener("click", function(){
+    btnSelected(_btnNext),
+    showOptions()
+})
+//Topping buttons:
 pepperoniButton.addEventListener("click", function(){
     addTopping("pepperoni", _btnPepperoni); 
 });
@@ -90,28 +100,29 @@ mixedPeppersButton.addEventListener("click", function(){
 cheeseButton.addEventListener("click", function(){
     addTopping("cheese", _btnCheese);
 });
-
+//Add pizza:
+addPizzaButton.addEventListener("click", function(){
+    addToBasket();
+})
 
 /* PIZZA GLOBAL */
 var pizza;
 var basket = [];
 
 /* PIZZA BUILDER */
-function pizzaObject(crust, size, toppings, extraOptions) {
+function pizzaObject(crust, size, toppings) {
    this.crust = crust;
    this.size = size;
    this.toppings = toppings;
-   this.extraOptions = extraOptions;
 }
 
 /* FUNCTIONS */
-
 function startPizza(){
     showModal(_size);
     //Clean up:
     pizza = undefined;
     remover(hideModal,[_crust,_toppings,_options]);
-    remover(btnUnselected,[_btn12inch,_btn14inch,_btnThick,_btnThin]);
+    remover(btnUnselected,[_btn12inch,_btn14inch,_btnThick,_btnThin,_btnNext]);
 }
 function showCrust(){
     showModal(_crust);
@@ -122,59 +133,76 @@ function showCrust(){
     pizza.toppings = undefined;
 }
 function showToppings(){
-    showModal(_toppings);
-    //Clean Up:
-    pizza.toppings = undefined;
-    hideModal(_warningMaxToppings);
-    remover(hideModal,[_options]);
-    remover(btnUnselected,[_btnPepperoni,_btnRedOnion,_btnMixedPeppers,_btnCheese]);
+        showModal(_toppings);
+        //Clean Up:
+        pizza.toppings = undefined;
+        hideModal(_warningNoToppings);
+        hideModal(_warningMaxToppings);
+        remover(hideModal,[_options]);
+        remover(btnUnselected,[_btnPepperoni,_btnRedOnion,_btnMixedPeppers,_btnCheese,_btnNext]);
 }
 function showOptions(){
-    showModal(_options);
+    if (pizza.toppings == undefined || pizza.toppings.length <1){  
+        showModal(_warningNoToppings);
+        btnUnselected(_btnNext);
+    } else {
+        hideModal(_warningNoToppings);
+        showModal(_options);
+        showPizza();
+    }
 }
-function resetState(){
-    btnUnselectAll([_btn12inch,_btn14inch,_btnThick,_btnThin]);
+function showPizza(){
+    currentPizza.innerHTML = `Your pizza<br/>Size: ${pizza.size}<br/>Crust: ${pizza.crust}<br/>Toppings:${pizza.toppings}</span><br/><br/>`;
+    remover(hideModal,[_toppings,_crust,_size]);
+}
+function addToBasket(){
+    basket.push(pizza);
+    // Clean up:
+    pizza = undefined;
+    remover(hideModal,[_options]);
+    toggleResetBtn();
 }
 // Add class:
 function hideModal(id) {
-    document.getElementById(id).classList.add("inactive");
+    elem(id).classList.add("inactive");
 }
 // Remove class:
 function showModal(id) {
-    document.getElementById(id).classList.remove("inactive");
+    elem(id).classList.remove("inactive");
 }
 // Activate button:
 function btnSelected(id){
-    document.getElementById(id).classList.replace("btnUnselected","btnSelected");
+    elem(id).classList.replace("btnUnselected","btnSelected");
 }
 // Activate toppings button:
 function btnToppingSelected(id){
-    document.getElementById(id).classList.replace("btnUnselected","btnToppingClicked");
+    elem(id).classList.replace("btnUnselected","btnToppingClicked");
 }
 // Reset buttons:
 function btnUnselected(id){
-    document.getElementById(id).classList != "btnToppingClicked" 
-    ? document.getElementById(id).classList.replace("btnSelected","btnUnselected")
-    : document.getElementById(id).classList.replace("btnToppingClicked", "btnUnselected");
+    elem(id).classList != "btnToppingClicked" 
+    ? elem(id).classList.replace("btnSelected","btnUnselected")
+    : elem(id).classList.replace("btnToppingClicked", "btnUnselected");
 }
-
 // Resets all modals or buttons:
-function remover(btnOrModal,arr){
+function remover(removalFunction,arr){
     for (let i=0; i<arr.length; i++){
-        btnOrModal(arr[i]);
+        removalFunction(arr[i]);
     }
 }
 // Toggle the Start/Reset button:
 function toggleResetBtn(){
     startButton.classList == "btnUnselected" 
-    ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerHTML = "Start again?") 
-    : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerHTML = "Let's Start!", hideModal(_size))
+    ? (startButton.classList.replace("btnUnselected", "btnReset"), startButton.innerText = "Start again?") 
+    : (startButton.classList.replace( "btnReset","btnUnselected"), startButton.innerText = "Let's Start!", hideModal(_size))
 }
+// Checks if the toppings key value is an array, then checks if the max length (5) has been reached. If not add the topping to the array and toggle the button style to clicked.
 function addTopping(t,b){
     if (pizza.toppings == undefined){
         pizza.toppings = []
     }
+    hideModal(_warningNoToppings);
     pizza.toppings.length <= 4
-    ? (pizza.toppings.push(t), btnToppingSelected(b))
+    ? (pizza.toppings.push(` ${t}`), btnToppingSelected(b))
     : showModal(_warningMaxToppings);
 }
